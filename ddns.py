@@ -6,7 +6,6 @@
 import sys
 import json
 import logging
-from time import sleep
 from http import HTTPStatus
 from argparse import ArgumentParser
 from http.client import HTTPSConnection
