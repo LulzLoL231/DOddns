@@ -14,7 +14,8 @@ from typing import Dict, Optional, Tuple
 from ipaddress import IPv4Address, IPv6Address
 
 
-VERSION = '0.1.4'
+VERSION = '0.2'
+TIMEOUT = 5
 IPv4_HOST = 'api.ipify.org'
 IPv4_PORT = 443
 IPv6_HOST = 'api6.ipify.org'
@@ -78,7 +79,7 @@ def do_req(
     '''
     log.debug(f'Called with args: ({method}, {url}, {body}, {headers})')  # type: ignore
     try:
-        con = HTTPSConnection(DOAPI_HOST, DOAPI_PORT)
+        con = HTTPSConnection(DOAPI_HOST, DOAPI_PORT, timeout=TIMEOUT)
         if headers:
             con.request(method, url, body, headers)
         else:
@@ -104,7 +105,7 @@ def get_ipv4() -> str:
     '''
     log.debug('Called')
     try:
-        con = HTTPSConnection(IPv4_HOST, IPv4_PORT)
+        con = HTTPSConnection(IPv4_HOST, IPv4_PORT, timeout=TIMEOUT)
         con.request('GET', '/')
     except Exception:
         if args.verbose:
@@ -135,7 +136,7 @@ def get_ipv6() -> str:
     '''
     log.debug('Called')
     try:
-        con = HTTPSConnection(IPv6_HOST, IPv6_PORT)
+        con = HTTPSConnection(IPv6_HOST, IPv6_PORT, timeout=TIMEOUT)
         con.request('GET', '/')
     except Exception:
         if args.verbose:
